@@ -19,6 +19,9 @@ jobs:
         run: snyk code test --sarif-file-output=snyk.sarif
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      
+      - name: Install snyk-to-html
+        run: npm install -g snyk-to-html
 
       - name: Convert Snyk SARIF to HTML
         run: snyk-to-html -i snyk.sarif -o snyk-report.html 
