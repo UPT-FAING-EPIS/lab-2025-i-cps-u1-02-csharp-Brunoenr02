@@ -1,9 +1,9 @@
-name: Build and Publish NuGet Package
+name: Actividad03 - PackageNuget
 
 on:
   push:
     branches:
-      - main  # Ajusta a tu rama principal si es diferente
+      - main
     paths:
       - '**/*.cs'
       - '**/*.csproj'
@@ -51,6 +51,6 @@ jobs:
       - name: Publish NuGet package to GitHub Packages
         run: |
           dotnet nuget push "./nupkgs/*.nupkg" \
-          --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+          --source "https://nuget.pkg.github.com/Brunoenr02/index.json" \
           --api-key "${{ secrets.GH_TOKEN }}" \
           --skip-duplicate
