@@ -1,4 +1,4 @@
-name: Actividad 3 - Package NuGet
+name: Actividad03 - PackageNuGet
 env:
   DOTNET_VERSION: '8.0' # la versión de .NET
   SONAR_ORG: 'lab01calidadsoftware'                    # Nombre de la organización de sonar cloud
