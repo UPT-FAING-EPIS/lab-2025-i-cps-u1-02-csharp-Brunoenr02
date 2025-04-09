@@ -1,8 +1,8 @@
 name: Actividad03 - PackageNuGet
 env:
   DOTNET_VERSION: '8.0' # la versión de .NET
-  SONAR_ORG: 'lab02calidadsoftware'                    # Nombre de la organización de sonar cloud
-  SONAR_PROJECT: 'lab02calidadsoftware_lab02calidadsoftware'        # Key ID del proyecto de sonar
+  SONAR_ORG: 'calidadsoftware'                    # Nombre de la organización de sonar cloud
+  SONAR_PROJECT: 'calidadsoftware_lab02calidadsoftware'        # Key ID del proyecto de sonar
   NUGET_PROJECT: 'Bank.WebApi'
   NUGET_OUTPUT_DIR: './nupkg'
 on: push
