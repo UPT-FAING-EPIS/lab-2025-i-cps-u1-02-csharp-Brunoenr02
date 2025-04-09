@@ -1,4 +1,4 @@
-name: Actividad02 - Snyk
+name: Actividad01 - Snyk
 env:
   DOTNET_VERSION: '8.x'
 on: push
