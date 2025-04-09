@@ -1,34 +1,33 @@
-name: Publicar Documentación DocFX
+name: Actividad02 - Publicar Documentación DocFX
 
 on:
   push:
-    branches:
-      - main  # o la rama principal de tu repo
+    branches: [main]  # o la rama que estés usando
 
 jobs:
-  build-and-publish-docs:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clonar repositorio
-        uses: actions/checkout@v4
+    - name: Checkout del código
+      uses: actions/checkout@v4
 
-      - name: Instalar DocFX
-        run: |
-          sudo apt-get install -y unzip
-          wget https://github.com/dotnet/docfx/releases/latest/download/docfx.zip
-          unzip docfx.zip -d docfx
-          sudo mv docfx/docfx /usr/local/bin/docfx
-          docfx --version
+    - name: Instalar DocFX
+      run: |
+        sudo apt-get install -y unzip
+        wget https://github.com/dotnet/docfx/releases/latest/download/docfx.zip
+        unzip docfx.zip -d docfx
+        sudo mv docfx/docfx /usr/local/bin/docfx
+        docfx --version
 
-      - name: Generar metadata
-        run: docfx metadata docfx.json
+    - name: Generar metadata
+      run: docfx metadata docfx.json
 
-      - name: Construir documentación
-        run: docfx build docfx.json
+    - name: Generar documentación
+      run: docfx build docfx.json
 
-      - name: Desplegar a GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+    - name: Deploy a GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./_site
