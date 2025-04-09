@@ -1,33 +1,25 @@
-name: Actividad02 - Publicar Documentación DocFX
-
-on:
-  push:
-    branches: [main]  # o la rama que estés usando
-
+on: push
 jobs:
-  build-and-deploy:
+  docfx:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout del código
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v3
 
-    - name: Instalar DocFX
-      run: |
-        sudo apt-get install -y unzip
-        wget https://github.com/dotnet/docfx/releases/latest/download/docfx.zip
-        unzip docfx.zip -d docfx
-        sudo mv docfx/docfx /usr/local/bin/docfx
-        docfx --version
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0
+    - name: Init DocFx
+      run: dotnet tool update -g docfx
 
     - name: Generar metadata
-      run: docfx metadata docfx.json
+      run: docfx metadata Bank/docfx.json
 
-    - name: Generar documentación
-      run: docfx build docfx.json
+    - name: Build Doc Site
+      run: docfx build Bank/docfx.json
 
-    - name: Deploy a GitHub Pages
+    - name: Subir GitHub Pages
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
+        publish_dir: Bank/_site
