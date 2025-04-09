@@ -1,4 +1,4 @@
-name: Snyk Analysis
+name: Actividad02 - Snyk
 env:
   DOTNET_VERSION: '8.x'
 on: push
