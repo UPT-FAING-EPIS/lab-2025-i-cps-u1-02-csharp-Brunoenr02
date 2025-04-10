@@ -51,6 +51,9 @@ jobs:
           --configuration Release \
           --output ${{ env.NUGET_OUTPUT_DIR }}
     
+    - name: Verificar archivos generados
+      run: ls -la ${{ env.NUGET_OUTPUT_DIR }}
+    
     - name: Publish NuGet package to GitHub Packages
       run: | 
         dotnet nuget push "${{ env.NUGET_OUTPUT_DIR }}/*.nupkg" \
