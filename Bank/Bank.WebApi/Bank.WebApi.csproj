@@ -5,8 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     
-    <!-- Agregado para generar paquete NuGet -->
+    <!-- Para que pueda generar el paquete NuGet -->
+    <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+
+    <!-- Metadatos del paquete -->
     <PackageId>Bank.WebApi</PackageId>
     <Version>1.0.0</Version>
     <Authors>Brunoenr02</Authors>
