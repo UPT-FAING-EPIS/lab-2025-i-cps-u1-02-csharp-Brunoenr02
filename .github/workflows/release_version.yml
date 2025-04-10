@@ -1,0 +1,47 @@
+name: Actividad04 - ReleaseVersion
+
+on:
+  push:
+    tags:
+      - 'v*' # Se activa cuando haces push de un tag como v1.0.0
+
+env:
+  DOTNET_VERSION: '8.0'
+  NUGET_PROJECT: 'Bank.WebApi'
+  NUGET_OUTPUT_DIR: './nupkg'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+
+    - name: Configurar .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restaurar dependencias
+      run: dotnet restore "Bank/Bank.sln"
+
+    - name: Build (Release)
+      run: dotnet build "Bank/Bank.sln" --configuration Release --no-restore
+
+    - name: Generar paquete NuGet
+      run: |
+        dotnet pack "Bank/${{ env.NUGET_PROJECT }}/${{ env.NUGET_PROJECT }}.csproj" \
+          --configuration Release \
+          --output ${{ env.NUGET_OUTPUT_DIR }}
+
+    - name: Mostrar archivos generados
+      run: ls -la ${{ env.NUGET_OUTPUT_DIR }}
+
+    - name: Crear Release en GitHub y subir artefacto
+      uses: softprops/action-gh-release@v1
+      with:
+        name: Release ${{ github.ref_name }}
+        tag_name: ${{ github.ref_name }}
+        files: ${{ env.NUGET_OUTPUT_DIR }}/*.nupkg
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
