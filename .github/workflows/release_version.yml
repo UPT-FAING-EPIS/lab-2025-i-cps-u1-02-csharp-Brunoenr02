@@ -1,9 +1,7 @@
 name: Actividad04 - ReleaseVersion
 
 on:
-  push:
-    tags:
-      - 'v*' # Se activa cuando haces push de un tag como v1.0.0
+  push
 
 env:
   DOTNET_VERSION: '8.0'
